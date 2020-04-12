@@ -7,15 +7,19 @@
 //
 
 import UIKit
+import CoreData
 
 class ToDoListViewController: UITableViewController {
     
     var taskArray = [Task]()
     
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Tasks.plist")
+    //creates context (the staging area) from AppDelegate as an object
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         loadTasks()
     }
@@ -58,12 +62,11 @@ class ToDoListViewController: UITableViewController {
         let alert = UIAlertController(title: "Add New Task", message: "", preferredStyle: .alert)
         
         let action = UIAlertAction(title: "Add Task", style: .default) { (action) in
-            
             //code for what happens when user clicks "Add Task" button on pop up
-            let newTask = Task()
-            newTask.title = textField.text!
             
-            //what will happen once user presses Add Task button on UIAlert
+            let newTask = Task(context: self.context)
+            newTask.title = textField.text!
+            newTask.done = false
             self.taskArray.append(newTask) //text property of text field will never be nil, only empty String
             
             self.saveTasks()
@@ -82,32 +85,25 @@ class ToDoListViewController: UITableViewController {
     //MARK: - Model Manipulation Methods
     
     func saveTasks() {
-        
-        //save updated task array to nscoder
-        let encoder = PropertyListEncoder()
-        
-        //all these methods can throw errors -> must use do, catch block
         do {
-            //encodes data
-            let data = try encoder.encode(taskArray)
-            //write data to dataFilePath
-            try data.write(to: dataFilePath!)
+            try context.save()
         } catch {
-            print("Error encoding item array, \(error)")
+            print("Error saving context, \(error)")
         }
-        
         self.tableView.reloadData()
     }
     
     func loadTasks() {
-        if let data = try? Data(contentsOf: dataFilePath!) {
-            let decoder = PropertyListDecoder()
-            do {
-                taskArray = try decoder.decode([Task].self, from: data)
-            } catch {
-                print("Error decoding item array, \(error)")
-            }
+        
+        //create a request and specify data type/entity
+        let request: NSFetchRequest<Task> = Task.fetchRequest()
+        
+        //talk to context and fetch all data in entity
+        do {
+            taskArray = try context.fetch(request) //returns a NSFetchRequestResult: an array of Tasks from container
+        } catch {
+            print("Error fetching data from context \(error)")
         }
+        
     }
-    
 }

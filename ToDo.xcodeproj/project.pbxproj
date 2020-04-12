@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F79C3332443B25A0066F0AD /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F79C3312443B25A0066F0AD /* DataModel.xcdatamodeld */; };
 		0FA3BF242442271200A8266B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3BF232442271200A8266B /* AppDelegate.swift */; };
 		0FA3BF282442271200A8266B /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3BF272442271200A8266B /* ToDoListViewController.swift */; };
 		0FA3BF2B2442271200A8266B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FA3BF292442271200A8266B /* Main.storyboard */; };
 		0FA3BF2D2442271400A8266B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FA3BF2C2442271400A8266B /* Assets.xcassets */; };
 		0FA3BF302442271400A8266B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FA3BF2E2442271400A8266B /* LaunchScreen.storyboard */; };
 		0FA3BF3A24422CDF00A8266B /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3BF3924422CDF00A8266B /* K.swift */; };
-		0FA3BF3C24428D8400A8266B /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3BF3B24428D8400A8266B /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F79C3322443B25A0066F0AD /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		0FA3BF202442271200A8266B /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FA3BF232442271200A8266B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FA3BF272442271200A8266B /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
@@ -25,7 +26,6 @@
 		0FA3BF2F2442271400A8266B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0FA3BF312442271400A8266B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FA3BF3924422CDF00A8266B /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
-		0FA3BF3B24428D8400A8266B /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +72,7 @@
 		0FA3BF3D24428D8900A8266B /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				0FA3BF3B24428D8400A8266B /* Task.swift */,
+				0F79C3312443B25A0066F0AD /* DataModel.xcdatamodeld */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -173,7 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FA3BF3C24428D8400A8266B /* Task.swift in Sources */,
+				0F79C3332443B25A0066F0AD /* DataModel.xcdatamodeld in Sources */,
 				0FA3BF3A24422CDF00A8266B /* K.swift in Sources */,
 				0FA3BF282442271200A8266B /* ToDoListViewController.swift in Sources */,
 				0FA3BF242442271200A8266B /* AppDelegate.swift in Sources */,
@@ -376,6 +376,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0F79C3312443B25A0066F0AD /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0F79C3322443B25A0066F0AD /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 0F79C3322443B25A0066F0AD /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0FA3BF182442271200A8266B /* Project object */;
 }

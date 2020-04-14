@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F8DCC7124465F8E00988286 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8DCC7024465F8E00988286 /* Data.swift */; };
 		0FA3BF242442271200A8266B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3BF232442271200A8266B /* AppDelegate.swift */; };
 		0FA3BF282442271200A8266B /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA3BF272442271200A8266B /* ToDoListViewController.swift */; };
 		0FA3BF2B2442271200A8266B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FA3BF292442271200A8266B /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F8DCC7024465F8E00988286 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		0FA3BF202442271200A8266B /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FA3BF232442271200A8266B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FA3BF272442271200A8266B /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				0FF9CDAB2445316B00BC69D0 /* DataModel.xcdatamodeld */,
+				0F8DCC7024465F8E00988286 /* Data.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -126,7 +129,6 @@
 				CF7A2A11419643816ABE2FBC /* Pods-ToDo.debug.xcconfig */,
 				33363ED369A7625FE9816E03 /* Pods-ToDo.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -246,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FF9CDA62445105800BC69D0 /* CategoryViewController.swift in Sources */,
+				0F8DCC7124465F8E00988286 /* Data.swift in Sources */,
 				0FF9CDAD2445316B00BC69D0 /* DataModel.xcdatamodeld in Sources */,
 				0FA3BF3A24422CDF00A8266B /* K.swift in Sources */,
 				0FA3BF282442271200A8266B /* ToDoListViewController.swift in Sources */,

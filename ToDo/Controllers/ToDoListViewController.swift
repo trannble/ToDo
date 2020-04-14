@@ -18,7 +18,7 @@ class ToDoListViewController: UITableViewController {
     var selectedCategory : Category? {
         didSet{
             //going to happen as soon as selectedCategory get set with a value in other controller
-            loadTasks()
+            loadTasks() //both request and predicate parameters have default values
         }
     }
     
@@ -106,7 +106,7 @@ class ToDoListViewController: UITableViewController {
     }
     
     //to load task: create a request, specify object to fetch, or else fetch default
-    func loadTasks(with request: NSFetchRequest<Task> = Task.fetchRequest(), with predicate: NSPredicate? = nil) {
+    func loadTasks(with request: NSFetchRequest<Task> = Task.fetchRequest(), predicate: NSPredicate? = nil) {
         
         //query task list that matches category
         let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
@@ -117,10 +117,13 @@ class ToDoListViewController: UITableViewController {
             request.predicate = categoryPredicate
         }
         
-        //custom query for each time loadTask
-        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, predicate])
-        
-        request.predicate = compoundPredicate
+        if let additionalPredicate = predicate {
+            //custom query for each time loadTask
+            let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
+            request.predicate = compoundPredicate
+        } else {
+            request.predicate = categoryPredicate
+        }
         
         //talk to context and fetch all data in entity
         do {
@@ -149,7 +152,7 @@ extension ToDoListViewController: UISearchBarDelegate {
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
         //fetch result with specific request + reload
-        loadTasks(with: request, with: predicate)
+        loadTasks(with: request, predicate: predicate)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

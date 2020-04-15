@@ -14,14 +14,11 @@
             symbolName = "*0x7fff47633b99">
             <Locations>
                <Location
-                  uuid = "020C2FFB-73DA-4A33-BDC9-8142A6714B2E - 33cea8cba767c3a0"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__103-[UIAlertController _dismissAnimated:triggeringAction:triggeredByPopoverDimmingView:dismissCompletion:]_block_invoke.458"
-                  moduleName = "UIKitCore"
                   usesParentBreakpointCondition = "Yes"
-                  offsetFromSymbolStart = "32">
+                  offsetFromSymbolStart = "0">
                </Location>
             </Locations>
          </BreakpointContent>

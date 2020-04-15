@@ -7,3 +7,12 @@
 //
 
 import Foundation
+import RealmSwift
+
+class Category: Object {
+    @objc dynamic var name: String = ""
+    
+    //forward relationship
+    let tasks = List<Task>()
+    //List is a container type (very similar to Arrays). Tasks is an object that holds a List of empty() Task
+}

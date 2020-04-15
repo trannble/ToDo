@@ -8,23 +8,20 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 class ToDoListViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var taskArray = [Task]()
+    let realm = try! Realm()
+    var todoTasks: Results<Task>?
     
     var selectedCategory: Category? {
         didSet{
-            //going to happen as soon as selectedCategory get set with a value in other controller
-            
-            loadTasks() //both request and predicate parameters have default values
+            loadTasks()
         }
     }
-    
-    //creates context (the staging area) from AppDelegate as an object
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,17 +36,18 @@ class ToDoListViewController: UITableViewController {
     //MARK: - Tableview Data Source Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taskArray.count
+        return todoTasks?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath)
         
-        let task = taskArray[indexPath.row]
-        
-        cell.textLabel?.text = task.title
-        
-        cell.accessoryType = task.done ? .checkmark : .none
+        if let task = todoTasks?[indexPath.row] {
+            cell.textLabel?.text = task.title
+            cell.accessoryType = task.done ? .checkmark : .none
+        } else {
+            cell.textLabel?.text = "No Items Added"
+        }
         
         return cell
     }
@@ -59,9 +57,9 @@ class ToDoListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         //sets done property (false) to (true) when row selected
-        taskArray[indexPath.row].done = !taskArray[indexPath.row].done
-        
-        saveTasks()
+        //        todoTasks[indexPath.row].done = !todoTasks[indexPath.row].done
+        //
+        //        saveTasks()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -76,13 +74,19 @@ class ToDoListViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Task", style: .default) { (action) in
             //code for what happens when user clicks "Add Task" button on pop up
             
-            let newTask = Task(context: self.context)
-            newTask.title = textField.text!
-            newTask.done = false
-            newTask.parentCategory = self.selectedCategory
-            self.taskArray.append(newTask) //text property of text field will never be nil, only empty String
+            if let currentCategory = self.selectedCategory {
+                do {
+                    try self.realm.write {
+                        let newTask = Task()
+                        newTask.title = textField.text!
+                        currentCategory.tasks.append(newTask)
+                    }
+                } catch {
+                    print("Error saving new items, \(error)")
+                }
+            }
             
-            self.saveTasks()
+            self.tableView.reloadData()
         }
         
         alert.addTextField { (alertTextField) in
@@ -97,34 +101,10 @@ class ToDoListViewController: UITableViewController {
     
     //MARK: - Model Manipulation Methods
     
-    func saveTasks() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context, \(error)")
-        }
-        self.tableView.reloadData()
-    }
-    
     //to load task: create a request, specify object to fetch, or else fetch default
-    func loadTasks(with request: NSFetchRequest<Task> = Task.fetchRequest(), predicate: NSPredicate? = nil) {
+    func loadTasks() {
         
-        //query task list that matches category (always)
-        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
-        
-        //optional binding. use only if extra predicate for search bar exists
-        if let additionalPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
-        } else {
-            request.predicate = categoryPredicate
-        }
-        
-        //talk to context and fetch all data in entity
-        do {
-            taskArray = try context.fetch(request) //returns a NSFetchRequestResult: an array of Tasks from container
-        } catch {
-            print("Error fetching data from context \(error)")
-        }
+        taskArray = selectedCategory?.tasks.sorted(byKeyPath: "title", ascending: true)
         
         tableView.reloadData()
     }

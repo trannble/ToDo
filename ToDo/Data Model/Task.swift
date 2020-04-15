@@ -7,3 +7,12 @@
 //
 
 import Foundation
+import RealmSwift
+
+class Task: Object {
+    @objc dynamic var title: String = " "
+    @objc dynamic var done: Bool = false
+    
+    //inverse relationship:
+    var parentCategory = LinkingObjects(fromType: Category.self, property: "tasks")
+}

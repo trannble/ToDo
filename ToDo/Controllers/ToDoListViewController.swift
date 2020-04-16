@@ -48,10 +48,10 @@ class ToDoListViewController: SwipeViewController {
                 navBar.barTintColor = navBarColor
                 
                 UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.white
+                                                
+                navBar.backgroundColor = .none
                 
-                navBar.tintColor = ContrastColorOf(navBar.backgroundColor!, returnFlat: true)
-                
-                navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(navBarColor, returnFlat: true)]
+                navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
                 
                 searchBar.barTintColor = navBarColor
                 
@@ -102,6 +102,10 @@ class ToDoListViewController: SwipeViewController {
         tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        //popup here
+        
+        
     }
     
     //MARK: - Add New Tasks

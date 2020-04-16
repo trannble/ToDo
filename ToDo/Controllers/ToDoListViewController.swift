@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import SwipeCellKit
 
 class ToDoListViewController: UITableViewController {
     
@@ -39,15 +40,15 @@ class ToDoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) 
+    
         if let task = todoTasks?[indexPath.row] {
             cell.textLabel?.text = task.title
             cell.accessoryType = task.done ? .checkmark : .none
         } else {
             cell.textLabel?.text = "No Items Added"
         }
-        
+                
         return cell
     }
     

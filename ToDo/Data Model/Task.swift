@@ -2,14 +2,18 @@
 //  Task.swift
 //  ToDo
 //
-//  Created by Tran Le on 4/11/20.
+//  Created by Tran Le on 4/14/20.
 //  Copyright © 2020 Tran L. All rights reserved.
 //
 
 import Foundation
+import RealmSwift
 
-class Task: Codable {
-    var title: String = ""
-    var done: Bool = false
+class Task: Object {
+    @objc dynamic var title: String = " "
+    @objc dynamic var done: Bool = false
+    @objc dynamic var dateCreated: Date?
+        
+    //inverse relationship:
+    var parentCategory = LinkingObjects(fromType: Category.self, property: "tasks")
 }
-

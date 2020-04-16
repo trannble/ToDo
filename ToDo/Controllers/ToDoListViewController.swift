@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class ToDoListViewController: SwipeViewController {
     
@@ -24,7 +25,9 @@ class ToDoListViewController: SwipeViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        tableView.separatorStyle = .none
+
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         searchBar.delegate = self
@@ -44,6 +47,12 @@ class ToDoListViewController: SwipeViewController {
 
         if let task = todoTasks?[indexPath.row] {
             cell.textLabel?.text = task.title
+                        
+            if let color = UIColor(hexString: selectedCategory!.backgroundHEXColor!)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoTasks!.count)) {
+                cell.backgroundColor = color
+                cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+            }
+            
             cell.accessoryType = task.done ? .checkmark : .none
         } else {
             cell.textLabel?.text = "No Items Added"

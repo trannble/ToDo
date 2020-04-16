@@ -7,3 +7,6 @@ Designed to help people stay productive during the COVID19 shelter-in-place.
 # How to use
 
 Clone this repository & install on your phone.
+
+# Demo
+https://www.youtube.com/watch?v=6EjUBbHrzzM

@@ -61,7 +61,7 @@ class CategoryViewController: UITableViewController {
         var textField = UITextField()
         
         let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
-        
+            
         let action = UIAlertAction(title: "Add Category", style: .default) { (action) in
             
             let newCategory = Category()

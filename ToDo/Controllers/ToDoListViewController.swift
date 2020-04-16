@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 import RealmSwift
 
 class ToDoListViewController: UITableViewController {
@@ -56,10 +55,17 @@ class ToDoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        //sets done property (false) to (true) when row selected
-        //        todoTasks[indexPath.row].done = !todoTasks[indexPath.row].done
-        //
-        //        saveTasks()
+        if let task = todoTasks?[indexPath.row] {
+            do {
+                try realm.write {
+                    task.done = !task.done
+                }
+            } catch {
+                print("Error saving done status, \(error)")
+            }
+        }
+        
+        tableView.reloadData()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -104,7 +110,7 @@ class ToDoListViewController: UITableViewController {
     //to load task: create a request, specify object to fetch, or else fetch default
     func loadTasks() {
         
-        taskArray = selectedCategory?.tasks.sorted(byKeyPath: "title", ascending: true)
+        todoTasks = selectedCategory?.tasks.sorted(byKeyPath: "title", ascending: true)
         
         tableView.reloadData()
     }

@@ -27,12 +27,36 @@ class ToDoListViewController: SwipeViewController {
         super.viewDidLoad()
         
         tableView.separatorStyle = .none
-
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         searchBar.delegate = self
         
         loadTasks()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if let HEXColor = selectedCategory?.backgroundHEXColor {
+            
+            title = selectedCategory!.name
+            
+            guard let navBar = navigationController?.navigationBar else {fatalError("Navigation controller does not exist.")}
+            
+            if let navBarColor = UIColor(hexString: HEXColor) {
+                
+                navBar.backgroundColor = navBarColor
+                
+                navBar.barTintColor = navBarColor
+                
+                UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.white
+                
+                navBar.tintColor = ContrastColorOf(navBar.backgroundColor!, returnFlat: true)
+                
+                navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(navBarColor, returnFlat: true)]
+                
+                searchBar.barTintColor = navBarColor
+                
+            }
+        }
     }
     
     //MARK: - Tableview Data Source Methods
@@ -42,13 +66,13 @@ class ToDoListViewController: SwipeViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
+        
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-
+        
         if let task = todoTasks?[indexPath.row] {
             cell.textLabel?.text = task.title
-                        
-            if let color = UIColor(hexString: selectedCategory!.backgroundHEXColor!)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoTasks!.count)) {
+            
+            if let color = UIColor(hexString: selectedCategory!.backgroundHEXColor)?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoTasks!.count)) {
                 cell.backgroundColor = color
                 cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
             }
@@ -57,7 +81,7 @@ class ToDoListViewController: SwipeViewController {
         } else {
             cell.textLabel?.text = "No Items Added"
         }
-                
+        
         return cell
     }
     

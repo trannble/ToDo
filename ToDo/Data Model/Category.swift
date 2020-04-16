@@ -11,7 +11,7 @@ import RealmSwift
 
 class Category: Object {
     @objc dynamic var name: String = ""
-    @objc dynamic var backgroundHEXColor: String?
+    @objc dynamic var backgroundHEXColor: String = ""
     
     //forward relationship
     let tasks = List<Task>()

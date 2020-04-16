@@ -76,14 +76,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Tasks" id="QLu-HN-p22">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="120-1Z-gQn">
-                            <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="DW3-Zc-GMK" id="8JM-Eo-Bwv"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchBar" destination="qfF-Bn-qxZ" id="8PK-Em-vWe"/>
+                        <outlet property="searchBar" destination="qfF-Bn-qxZ" id="aqi-nN-amG"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e0W-bc-sRj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -98,10 +97,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="flj-Vc-aF6">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.96470588239999999" green="0.81960784310000001" blue="0.52549019610000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

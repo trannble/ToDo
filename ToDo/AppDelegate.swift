@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreData
 import RealmSwift
 
 @UIApplicationMain
@@ -17,62 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        print(Realm.Configuration.defaultConfiguration.fileURL)
+        //print(Realm.Configuration.defaultConfiguration.fileURL)
         
         do {
-            let realm = try Realm() //initialize new Realm "container"
-            }
-         catch {
+            _ = try Realm() //initialize new Realm "container"
+        }
+        catch {
             print("Error initializing new realm, \(error)")
         }
-    
+        
         return true
     }
     
-    func applicationWillTerminate(_ application: UIApplication) {
-        self.saveContext()
-    }
-    
-    // MARK: - Core Data stack
-    
-    // lazy var = memory benefit (only called when needed)
-    lazy var persistentContainer: NSPersistentContainer = { //creates a SQLite container called NSPersistentContainer, where all data is stored. Can use different types of persistentContainer other than SQLite (ie XML)
-        
-        // creates the container
-        let container = NSPersistentContainer(name: "DataModel")
-        
-        //loads container
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            
-            //returns error if fail
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        
-        //return container if successful --> becomes value of persistentContainer var
-        return container
-        //can access persistentContainer inside other classes to save data into SQLite database
-    }()
-    
-    // MARK: - Core Data Saving support
-    
-    // provides support to saving data when app terminates
-    func saveContext () {
-        
-        //create a context, an area to edit data (like a staging area)
-        let context = persistentContainer.viewContext
-        
-        if context.hasChanges {
-            do {
-                //permanently save data to persistentContainer once happy with edit in context
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-    
 }
+
+
 

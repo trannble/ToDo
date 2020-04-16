@@ -49,6 +49,7 @@ class CategoryViewController: UITableViewController {
     
     func loadCategory() {
         
+        //fetches all objects belonging to Category type
         categoryArray = realm.objects(Category.self)
  
         tableView.reloadData()

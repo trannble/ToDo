@@ -85,6 +85,7 @@ class ToDoListViewController: UITableViewController {
                     try self.realm.write {
                         let newTask = Task()
                         newTask.title = textField.text!
+                        newTask.dateCreated = Date()
                         currentCategory.tasks.append(newTask)
                     }
                 } catch {
@@ -121,18 +122,8 @@ class ToDoListViewController: UITableViewController {
 extension ToDoListViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
-        //request data from SQLite
-        let request: NSFetchRequest<Task> = Task.fetchRequest()
-        
-        //specify query (what)
-        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-        
-        //specify sorting (how)
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-        
-        //fetch result with specific request + reload
-        loadTasks(with: request, predicate: predicate)
+        todoTasks = todoTasks?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
+        tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

@@ -8,9 +8,8 @@
 
 import UIKit
 import RealmSwift
-import SwipeCellKit
 
-class ToDoListViewController: UITableViewController {
+class ToDoListViewController: SwipeViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -25,7 +24,7 @@ class ToDoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         searchBar.delegate = self
@@ -40,8 +39,9 @@ class ToDoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) 
     
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+
         if let task = todoTasks?[indexPath.row] {
             cell.textLabel?.text = task.title
             cell.accessoryType = task.done ? .checkmark : .none
@@ -115,6 +115,21 @@ class ToDoListViewController: UITableViewController {
         todoTasks = selectedCategory?.tasks.sorted(byKeyPath: "title", ascending: true)
         
         tableView.reloadData()
+    }
+    
+    //MARK: - Delete Data from Swipe Class
+    
+    override func updateModel(at indexPath: IndexPath) {
+        
+        if let deleteTask = todoTasks?[indexPath.row] {
+            do {
+                try realm.write {
+                    realm.delete(deleteTask)
+                }
+            } catch {
+                print("Error deleting task, \(error)")
+            }
+        }
     }
 }
 
